@@ -2,23 +2,27 @@ version: '3'
 
 services:
 
-  myapp-mysql:
-    image: mysql:8.0
-    environment:
-      - MYSQL_ROOT_PASSWORD=rootpw
-      - MYSQL_DATABASE=workshop_app
-      - MYSQL_USER=myapp-user
-      - MYSQL_PASSWORD=password
-    ports:
-      - 3306:3306
+postgreSQL:
+  restart: always
+  image: postgres:latest
+  ports:
+    - "5432:5432"
+  environment:
+    - DEBUG=false
+    - POSTGRES_USER=user
+    - POSTGRES_PASSWORD=password
+    - POSTGRES_DB=workshop_app
+  volumes:
+    - postgresql:/var/lib/postgresql
+  restart: unless-stopped
 
   myapp-main:
     build: .
     restart: on-failure
     depends_on:
-      - myapp-mysql
+      - postgreSQL
     ports:
-      - 8080:8080
+      - 8888:8080
     environment:
       - DATABASE_HOST=myapp-mysql
       - DATABASE_USER=myapp-user
