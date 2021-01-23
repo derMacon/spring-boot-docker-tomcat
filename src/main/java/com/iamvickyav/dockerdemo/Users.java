@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,9 +16,9 @@ public class User {
     @Column(unique = true)
     private String username;
 
-    public User() {}
+    public Users() {}
 
-    public User(String username) {
+    public Users(String username) {
         this.username = username;
     }
 

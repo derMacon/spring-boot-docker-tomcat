@@ -15,6 +15,7 @@ public class RestController {
 
     @RequestMapping("/test")
     public String test() {
+        userRepository.save(new Users("testinput1"));
         List<String> result = new ArrayList<String>();
         userRepository.findAll().forEach(e -> result.add(e.getUsername()));
         return "test1: " + result;
